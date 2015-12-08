@@ -111,5 +111,5 @@ int main(int argc, char* argv[]) {
 
 	// {"firstName":"John", "lastName":"Doe"}
 	// print result to python syntax
-	printf("{\"result\":\"%d\", \"max_time\":\"%d\", \"max_memory\":\"%d\"}", result, max_time, max_memory >> 10);
+	printf("{\"result\":\"%d\", \"maxtime\":\"%d\", \"maxmemory\":\"%d\"}", result, max_time, max_memory >> 10);
 }

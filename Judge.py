@@ -50,25 +50,25 @@ def EncodeAES(plaindata, key):
 while True:
 	try:
 		# Connect to the database
-		conn = connect(host = "localhost", port = 3306, user = "root", passwd = "1234", db = "ricola_development")
+		conn = connect(host = "localhost", port = 3306, user = "root", passwd = "1234", db = "coj_development")
 
 		#Setting cursors and defining type of returns we need from Database, here it"s gonna be returning as dictionary data
 		submissions = conn.cursor(cursors.DictCursor);
 		problems = conn.cursor(cursors.DictCursor);
-		submissions.execute("SELECT * FROM submissioninfos WHERE result = " + str(WAIT))
+		submissions.execute("SELECT * FROM submissions WHERE result = " + str(WAIT))
 
 		for submission in submissions:
 			# get problem information
-			problem_id = str(submission["probleminfo_id"])
-			problems.execute("SELECT * FROM probleminfos WHERE id = " + problem_id)
+			problem_id = str(submission["problem_id"])
+			problems.execute("SELECT * FROM problems WHERE id = " + problem_id)
 			problem = problems.fetchone()
 
 			# get submission information
 			submission_id = str(submission["id"])
 			language = lang[submission["language_id"]]
-			time_limit = str(problem["time_limit"])
-			memory_limit = str(problem["memory_limit"])
-			source = str(submission["source"])
+			time_limit = str(problem["timelimit"])
+			memory_limit = str(problem["memorylimit"])
+			source = str(submission["code"])
 			special = "0"
 
 			# get judge data information
@@ -129,8 +129,8 @@ while True:
 						max_memory = max_time = -1
 						print("problem_id(%s), data(%s) : " % (problem_id, judge_data_files[x*2]), end=" => ")
 						break
-					max_time = max(max_time, int(result_data["max_time"]))
-					max_memory = max(max_memory, int(result_data["max_memory"]))
+					max_time = max(max_time, int(result_data["maxtime"]))
+					max_memory = max(max_memory, int(result_data["maxmemory"]))
 
 					print("problem_id(%s), data(%s) : " % (problem_id, judge_data_files[x*2]), end=" => ")
 					print(result_data)
@@ -138,7 +138,7 @@ while True:
 				# clean judge area
 				if os.path.exists("JudgeArea"): shutil.rmtree("JudgeArea")
 
-			query = "UPDATE submissioninfos SET result = %s, using_memory = %s, running_time = %s WHERE id = %s;" % (result, max_memory, max_time, submission_id)
+			query = "UPDATE submissions SET result = %s, maxmemory = %s, maxtime = %s WHERE id = %s;" % (result, max_memory, max_time, submission_id)
 			print(query)
 			try:
 				submissions.execute(query)

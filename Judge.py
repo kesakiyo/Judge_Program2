@@ -27,7 +27,6 @@ container_name = ["empty", "baekjoon/onlinejudge-gcc:4.8", "baekjoon/onlinejudge
 lang = ["empty", "C", "CC", "CC11"]
 
 
-
 # the block size for the cipher object; must be 16, 24, or 32 for AES
 BLOCK_SIZE = 32
 
@@ -47,10 +46,15 @@ def EncodeAES(plaindata, key):
     enc = cipher.encrypt(pad(plaindata))#cipher.encrypt(s)#
     return base64.b64encode(enc)
 
+
+# Load Mysql Connection information.
+with open("./connect_info.json") as f:
+	conn_info = json.load(f)
+
 while True:
 	try:
 		# Connect to the database
-		conn = connect(host = "localhost", port = 3306, user = "root", passwd = "1234", db = "coj_development")
+		conn = connect(host = conn_info["host"], port = int(conn_info["port"]), user = conn_info["user"], passwd = conn_info["passwd"], db = conn_info["db"])
 
 		#Setting cursors and defining type of returns we need from Database, here it"s gonna be returning as dictionary data
 		submissions = conn.cursor(cursors.DictCursor);

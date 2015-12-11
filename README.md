@@ -10,4 +10,3 @@ Judge program is made by using python3 and C++.
 
 ## Ver 1.2
 * Total Submission과 Accept판정을 받은 Submission들의 counting update를 AutoUpdate.py가 자동으로 하도록 수정
-정

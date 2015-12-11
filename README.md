@@ -9,4 +9,4 @@ Judge program is made by using python3 and C++.
 * CTP Online Judge development version과 Database 연동
 
 ## Ver 1.2
-* Total Submission과 Accept판정을 받은 Submission들의 업데이트를 crontab으로 주기석으로 실행되도록 변경
+* Total Submission과 Accept판정을 받은 Submission들의 업데이트를 crontab으로 주기적으로 실행되도록 변경

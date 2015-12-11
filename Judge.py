@@ -73,7 +73,7 @@ while True:
 			time_limit = str(problem["timelimit"])
 			memory_limit = str(problem["memorylimit"])
 			source = str(submission["code"])
-			special = "0"
+			special = str(problem["special"])
 
 			# get judge data information
 			judge_data_path = os.getcwd() + "/JudgeData/" + problem_id

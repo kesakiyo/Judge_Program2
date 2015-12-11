@@ -154,6 +154,7 @@ while True:
 		print(error)
 
 	finally:
+		subprocess.call(["python3", "AutoUpdate.py"])
 		conn.close()
 		submissions.close()
 		problems.close()

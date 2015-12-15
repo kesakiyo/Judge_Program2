@@ -9,7 +9,7 @@ try:
 	conn = connect(host = conn_info["host"], port = int(conn_info["port"]), user = conn_info["user"], passwd = conn_info["passwd"], db = conn_info["db"])
 	submissions = conn.cursor(cursors.DictCursor);
 
-	submissions.execute("SELECT * FROM submissions WHERE (isUpdate = 0 and result!= 0)")
+	submissions.execute("SELECT * FROM submissions WHERE (isUpdatable = 0 and result >=2)")
 	for submission in submissions:
 		problem_id = str(submission["problem_id"])
 		user_id = str(submission["user_id"])
@@ -24,7 +24,7 @@ try:
 		submit = int(problem["submit"]) + 1
 		answer = int(problem["answer"]) + accept
 
-		submissions_query = "UPDATE submissions SET isUpdate = 1;"
+		submissions_query = "UPDATE submissions SET isUpdatable = 1;"
 		problem_query = "UPDATE problems SET submit = %s, answer = %s;" % (submit, answer)
 		solveds_query = "UPDATE solveds SET accept = %s WHERE accept = 0;" % accept
 

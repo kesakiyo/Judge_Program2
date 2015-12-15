@@ -13,7 +13,7 @@ try:
 	for submission in submissions:
 		problem_id = str(submission["problem_id"])
 		user_id = str(submission["user_id"])
-		isAccept = 1 if int(submission["result"]) == 2 else 0
+		accept = 1 if int(submission["result"]) == 2 else 0
 
 		problems = conn.cursor(cursors.DictCursor);
 		solveds = conn.cursor(cursors.DictCursor);
@@ -22,11 +22,11 @@ try:
 		problem = problems.fetchone()
 
 		submit = int(problem["submit"]) + 1
-		answer = int(problem["answer"]) + isAccept
+		answer = int(problem["answer"]) + accept
 
 		submissions_query = "UPDATE submissions SET isUpdate = 1;"
 		problem_query = "UPDATE problems SET submit = %s, answer = %s;" % (submit, answer)
-		solveds_query = "UPDATE solveds SET isAccept = %s WHERE isAccept = 0;" % isAccept
+		solveds_query = "UPDATE solveds SET accept = %s WHERE accept = 0;" % accept
 
 		try:
 			problems.execute(problem_query)
